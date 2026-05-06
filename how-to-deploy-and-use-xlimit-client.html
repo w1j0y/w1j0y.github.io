@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Deploy and Use xLimit Client Step by Step | xLimit Blog</title>
+  <meta name="description" content="Step-by-step guide to deploying and using xLimit Client with Codex, Claude Code, and hosted retrieval." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#050505;--text:#f5f7fa;--text-soft:#b1b7c3;--text-dim:#707785;--line:#23262d;--line-strong:#323743;--max:1100px;--article:860px}
+    *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:'Inter',sans-serif;background:radial-gradient(circle at top,rgba(255,255,255,.07),transparent 30%),linear-gradient(180deg,#050505 0%,#070809 100%);color:var(--text);line-height:1.75;overflow-x:hidden}body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:42px 42px;mask-image:radial-gradient(circle at center,black,transparent 85%);opacity:.28;z-index:0}.container{width:min(100% - 32px,var(--max));margin:0 auto;position:relative;z-index:1}.article-wrap{width:min(100% - 32px,var(--article));margin:0 auto;position:relative;z-index:1}.mono{font-family:'JetBrains Mono',monospace}a{color:var(--text);text-decoration:none}nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(18px);background:rgba(5,5,5,.86);border-bottom:1px solid rgba(255,255,255,.08)}nav .container{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:16px 0}.logo{color:var(--text);font-weight:800;font-size:1.15rem;letter-spacing:-.03em}.logo span{color:var(--text-dim)}.nav-links{display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:flex-end}.nav-links a{color:var(--text-soft);font-size:.92rem;font-weight:500;transition:.2s ease}.nav-links a:hover{color:var(--text)}.nav-cta{padding:10px 18px;border-radius:10px;background:var(--text);color:#050505!important;font-weight:700!important;border:1px solid transparent}.hero{padding:84px 0 26px}.hero-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text-soft);font-size:.8rem;margin-bottom:20px}.hero-badge:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--text);box-shadow:0 0 18px rgba(255,255,255,.55)}h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.03;letter-spacing:-.055em;margin-bottom:16px;max-width:900px}.hero-sub{max-width:760px;font-size:1.06rem;color:var(--text-soft);margin-bottom:18px}.post-meta{color:var(--text-dim);font-size:.84rem;text-transform:uppercase;letter-spacing:.12em}.article{padding:34px 0 80px}.article-card{background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.01));border:1px solid var(--line);border-radius:22px;padding:36px;box-shadow:0 18px 50px rgba(0,0,0,.25)}.article-card p,.article-card ul,.article-card ol{color:var(--text-soft);font-size:1rem;margin:0 0 18px}.article-card strong{color:var(--text)}.article-card h2{font-size:clamp(1.5rem,3.5vw,2.25rem);line-height:1.15;letter-spacing:-.04em;margin:42px 0 14px;color:var(--text)}.article-card h3{font-size:1.12rem;margin:30px 0 12px;color:var(--text);letter-spacing:-.02em}.article-card ul,.article-card ol{padding-left:22px}.article-card li{margin-bottom:8px}pre{margin:18px 0 22px;background:#0c0d0f;border:1px solid var(--line);border-radius:16px;padding:18px;overflow-x:auto}code{font-family:'JetBrains Mono',monospace;font-size:.92rem}p code,li code{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:2px 7px;border-radius:8px}.callout{margin:22px 0;padding:18px 20px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02))}.callout strong{display:block;margin-bottom:8px}.screenshot{margin:22px 0 28px}.screenshot img{display:block;width:100%;height:auto;border-radius:16px;border:1px solid var(--line);background:#0c0d0f;box-shadow:0 18px 48px rgba(0,0,0,.28)}.screenshot-caption{margin-top:10px;color:var(--text-dim);font-size:.92rem;line-height:1.55}.missing-image-note{margin:22px 0 28px;padding:16px 18px;border-radius:16px;border:1px dashed var(--line-strong);background:rgba(255,255,255,.02);color:var(--text-dim);font-size:.95rem}.back-link{display:inline-flex;align-items:center;gap:10px;margin-bottom:22px;color:var(--text-soft);font-size:.95rem}.back-link:hover{color:var(--text)}footer{padding:28px 0 44px;border-top:1px solid rgba(255,255,255,.08)}.footer-content{display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}.footer-left{color:var(--text-dim);font-size:.88rem}.footer-left a,.footer-links a{color:var(--text-soft);text-decoration:none}.footer-links{display:flex;gap:14px;flex-wrap:wrap}.footer-links a:hover,.footer-left a:hover{color:var(--text)}@media(max-width:768px){nav .container{align-items:flex-start;flex-direction:column}.nav-links{width:100%;justify-content:flex-start}.hero{padding-top:64px}.article-card{padding:22px;border-radius:18px}.nav-cta{width:100%;text-align:center}.footer-content{flex-direction:column;align-items:flex-start}}
+  </style>
+</head>
+<body>
+  <nav><div class="container"><a href="/" class="logo">x<span>Limit</span> Blog</a><div class="nav-links"><a href="/">Home</a><a href="https://xlimit.org">Main Site</a><a href="https://app.xlimit.org" class="nav-cta">Launch App</a></div></div></nav>
+  <section class="hero"><div class="article-wrap"><div class="hero-badge mono">xLimit Client Guide</div><h1>How to Deploy and Use xLimit Client Step by Step</h1><p class="hero-sub">A full walkthrough for registering, claiming your token, installing xLimit Client, testing hosted retrieval, and wiring it into Codex or Claude Code.</p><div class="post-meta mono">May 2026 · xLimit</div></div></section>
+  <section class="article"><div class="article-wrap"><a class="back-link" href="/">← Back to blog</a><article class="article-card">
+    <p>If you want to use xLimit inside your own terminal workflow, the easiest way to do it is through <strong>xLimit Client</strong>.</p>
+    <p>xLimit Client gives approved users a local way to connect terminal agents like Codex, Claude Code, and similar workflows to hosted xLimit retrieval. Instead of exposing raw source files, xLimit returns short retrieval snippets that your local workflow can use as supporting context.</p>
+    <p>In this guide, I’ll walk through the setup step by step, from registering for access and saving your API token securely, to installing the client, testing it, and wiring it into your terminal agent workflow.</p>
+    <h2>What xLimit Client does</h2>
+    <p>xLimit Client is a local client toolkit for approved users who want to use hosted xLimit retrieval from their own environment.</p>
+    <p>For most users, the most important part is simple:</p>
+    <pre><code>~/xlimit-client/xlimit_context.sh</code></pre>
+    <p>That is the wrapper script you can plug into Codex, Claude Code, or another local assistant session so it can pull xLimit retrieval before answering.</p>
+    <h2>Before you start</h2>
+    <p>For the hosted retrieval workflow, you need:</p>
+    <ul><li>Bash</li><li><code>curl</code></li><li>Python 3</li><li>an xLimit API token</li></ul>
+    <p>For the basic client setup, that is enough. If you later want to use the recon tooling as well, there are additional dependencies, but for this guide we are focusing on the core xLimit Client workflow first.</p>
+    <h2>Step 1: Register at app.xlimit.org and claim your token</h2>
+    <p>Start by going to:</p><pre><code>app.xlimit.org</code></pre>
+    <p>Register for your first trial month. After registration, you will receive an email with a link to claim your xLimit access token.</p>
+    <div class="screenshot"><img src="images/xLimit-access-token-email.png" alt="Email containing the xLimit access token claim link"><div class="screenshot-caption">The email users receive after registration, containing the access-token claim link.</div></div>
+    <p>Open the email and click the <strong>“claim your token here”</strong> URL. You will then be shown your token value. Copy it and save it immediately.</p>
+    <div class="callout"><strong>Important</strong>This token is only displayed once, so treat it like a password and do not lose it.</div>
+    <div class="screenshot"><img src="images/xLimit-API-token.png" alt="xLimit API token claim page with token redacted"><div class="screenshot-caption">The token claim page. The token should be copied immediately and redacted from screenshots.</div></div>
+    <p>A few important safety rules:</p><ul><li>do not commit the token</li><li>do not paste it into prompts</li><li>do not include it in screenshots without redacting it</li><li>do not attach it to reports or public notes</li></ul>
+    <h2>Step 2: Clone and install xLimit Client</h2>
+    <p>Next, clone the client repo and run the installer:</p>
+    <pre><code>git clone https://github.com/w1j0y/xlimit-client.git
+cd xlimit-client
+chmod +x install.sh
+./install.sh</code></pre>
+    <p>The installer does not require <code>sudo</code>. Once installed, the client wrappers will be available under:</p><pre><code>~/xlimit-client/</code></pre>
+    <div class="screenshot"><img src="images/gitclone-command.png" alt="Terminal showing git clone and xLimit Client install commands"><div class="screenshot-caption">Cloning the xLimit Client repo and running <code>./install.sh</code>.</div></div>
+    <h2>Step 3: Save the token locally</h2>
+    <p>Now save the token locally in your xLimit config directory. The claim page provides a command block that creates the config directory, writes your token, and locks down permissions.</p>
+    <div class="screenshot"><img src="images/stepone-installxLimitclient.png" alt="xLimit token setup command block highlighted on the token page"><div class="screenshot-caption">Copy the setup command block from the token page. This block prepares <code>~/.config/xlimit/token.env</code> with your API token.</div></div>
+    <p>The command follows this structure:</p>
+    <pre><code>mkdir -p ~/.config/xlimit
+chmod 700 ~/.config/xlimit
+cat &gt; ~/.config/xlimit/token.env &lt;&lt;'EOF'
+XLIMIT_API_TOKEN=PASTE_YOUR_TOKEN_HERE
+EOF
+chmod 600 ~/.config/xlimit/token.env</code></pre>
+    <p>This stores the token in:</p><pre><code>~/.config/xlimit/token.env</code></pre>
+    <p>Make sure the real token is in place of <code>PASTE_YOUR_TOKEN_HERE</code>. Avoid adding extra quotes, spaces, or committing this file anywhere.</p>
+    <h2>Step 4: Test hosted retrieval before using Codex</h2>
+    <p>Before integrating xLimit into your terminal agent, test the client directly first. This confirms the token file is correct and the wrapper can reach the xLimit API.</p>
+    <pre><code>~/xlimit-client/xlimit_context.sh "I found a public GraphQL endpoint with introspection enabled. Help me think through safe next tests."</code></pre>
+    <div class="screenshot"><img src="images/steptwo-savetoken-testretrieval.png" alt="Terminal showing token setup and successful xLimit retrieval test"><div class="screenshot-caption">Saving the token locally and running the first retrieval test outside Codex.</div></div>
+    <p>At this point, you have confirmed:</p><ul><li>your token is valid</li><li>the token file is being read correctly</li><li>the client wrapper can reach the xLimit API</li><li>hosted retrieval is working locally</li></ul>
+    <h2>Step 5: Install Codex or Claude Code if needed</h2>
+    <p>If you do not already have a terminal agent installed, this is the point where you should install one.</p>
+    <h3>Install Codex</h3><pre><code>npm i -g @openai/codex
+codex</code></pre>
+    <h3>Install Claude Code</h3><pre><code>npm install -g @anthropic-ai/claude-code
+claude</code></pre>
+    <p>If you already have one of these installed, you can skip this step.</p>
+    <h2>Step 6: Give Codex the right permissions</h2>
+    <p>Before asking Codex to use xLimit hosted retrieval, make sure the session has enough permissions to run local commands and reach the xLimit API.</p>
+    <div class="screenshot"><img src="images/codex-settings-fullaccess.png" alt="Codex settings showing full access permissions enabled"><div class="screenshot-caption">Setting Codex permissions so it can run the wrapper and reach the xLimit API.</div></div>
+    <h2>Step 7: Add the xLimit instruction to Codex or Claude Code</h2>
+    <p>Once the client works locally and your terminal agent is ready, paste this instruction block into Codex, Claude Code, or a similar local assistant session:</p>
+    <pre><code>Use xLimit hosted retrieval when the task would benefit from xLimit security knowledge or generic operational memory.
+
+Run:
+~/xlimit-client/xlimit_context.sh "&lt;full user prompt&gt;"
+
+Use the returned text as supporting context for your answer.
+
+Rules:
+- Do not print or expose the token.
+- Do not read or modify ~/.config/xlimit/token.env except through the existing wrapper scripts.
+- Do not call the raw API directly if the wrapper script is available.
+- Prefer xlimit_context.sh over lower-level wrappers unless a narrower source-specific lookup is required.
+- Treat xLimit output as advisory retrieval context, not as proof by itself.</code></pre>
+    <p>This gives your assistant a repeatable way to pull xLimit context into its reasoning without you having to manually reconstruct everything every time.</p>
+    <div class="missing-image-note">Optional screenshot slot: add the screenshot showing Codex accepting the xLimit instruction. Rename that image to <code>codex-xlimit-instruction-accepted.png</code>, upload it into <code>images/</code>, then replace this box with the image block in the HTML comments below.</div>
+    <div class="screenshot"><img src="images/codex-instruction-block.png" alt="Codex acknowledging the xLimit hosted retrieval instruction"><div class="screenshot-caption">Codex acknowledging that it will use xLimit hosted retrieval when the task benefits from it.</div></div> -->
+    <h2>Step 8: Send a prompt and verify the workflow</h2>
+    <p>Now test the workflow with a realistic prompt:</p>
+    <pre><code>I found a public GraphQL endpoint with introspection enabled. Help me think through safe next tests.</code></pre>
+    <p>Codex should use the xLimit wrapper when the task would benefit from xLimit security knowledge or operational memory, then answer using the returned retrieval context as supporting input.</p>
+    <div class="screenshot"><img src="images/codex-prompt-answer.png" alt="Codex response after using xLimit context for a GraphQL testing prompt"><div class="screenshot-caption">Codex answering the GraphQL testing prompt after the xLimit workflow is configured.</div></div>
+    <h2>Step 9: Force retrieval when a task really needs it</h2>
+    <p>Sometimes you do not want the assistant to decide whether retrieval is useful. You want to force it to use xLimit first.</p>
+    <p>In those cases, use a stronger instruction like this:</p>
+    <pre><code>You must use xLimit hosted retrieval before answering this task.
+
+Run this exact command first:
+~/xlimit-client/xlimit_context.sh "&lt;full user prompt&gt;"
+
+After the command returns, use the returned xLimit context as supporting input and then answer.</code></pre>
+    <p>This is especially useful for:</p><ul><li>security analysis tasks</li><li>triage decisions</li><li>follow-up validation ideas</li><li>reporting help</li><li>tasks where you want the assistant grounded in xLimit retrieval before doing anything else</li></ul>
+    <h2>Step 10: Know the most common setup failures</h2>
+    <p>Most setup issues fall into a few predictable categories.</p>
+    <h3><code>XLIMIT_API_TOKEN</code> is not set</h3><p>This usually means the wrapper could not find your local token file.</p><pre><code>ls -l ~/.config/xlimit/token.env</code></pre><p>Then open it and confirm it contains:</p><pre><code>XLIMIT_API_TOKEN=PASTE_YOUR_TOKEN_HERE</code></pre><p>Also verify the permissions again:</p><pre><code>chmod 700 ~/.config/xlimit
+chmod 600 ~/.config/xlimit/token.env</code></pre>
+    <h3>Unauthorized</h3><p>This usually means the token is missing, wrong, expired, or revoked. Check that the token was copied exactly, has no extra quotes, has no spaces before or after it, and is still valid.</p>
+    <h3>DNS or network failures</h3><p>If the wrapper cannot reach the API, test connectivity first:</p><pre><code>curl -I https://api.xlimit.org</code></pre><p>A root-path <code>404</code> is normal here. It simply means the domain is reachable.</p><pre><code>nslookup api.xlimit.org
+dig api.xlimit.org</code></pre><p>If this fails, check your DNS, proxy, VPN, firewall, or network environment.</p>
+    <h3>Codex cannot reach <code>api.xlimit.org</code></h3><p>Sometimes xLimit works fine in your normal terminal, but fails inside Codex because of sandbox network restrictions.</p><p>If that happens, open:</p><pre><code>nano ~/.codex/config.toml</code></pre><p>If you are using:</p><pre><code>sandbox_mode = "workspace-write"</code></pre><p>add:</p><pre><code>[sandbox_workspace_write]
+network_access = true</code></pre><p>Example:</p><pre><code>model = "gpt-5.5"
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+model_reasoning_effort = "high"
+
+[sandbox_workspace_write]
+network_access = true</code></pre><p>Then fully exit Codex, start a new session, and test again.</p><p>If network access still fails inside Codex, you can always run the wrapper manually from a normal terminal and paste the returned xLimit context into the session.</p>
+    <h2>Step 11: Optional next step — xLimit Recon</h2><p>If you want more than hosted retrieval, xLimit Client also includes a local recon and triage helper.</p><pre><code>python3 recon/xlimit_recon.py -d example.com</code></pre><p>That is better covered in a separate guide, but it is worth knowing that the client repo can support both hosted retrieval for terminal agents and local recon and triage workflows.</p>
+    <h2>Final notes</h2><p>The core xLimit Client workflow is simple:</p><ul><li>register at <code>app.xlimit.org</code></li><li>claim your token from the email link</li><li>install the client</li><li>save the token locally</li><li>test hosted retrieval</li><li>give Codex the right permissions</li><li>plug <code>xlimit_context.sh</code> into your terminal agent workflow</li><li>troubleshoot locally if something goes wrong</li></ul><p>For most users, the real value is not the installation itself. It is having a repeatable way to make Codex, Claude Code, or another local assistant pull xLimit retrieval as supporting context during real security work.</p>
+  </article></div></section>
+  <footer><div class="container"><div class="footer-content"><div class="footer-left"><span class="mono" style="color:#fff;">xLimit Blog</span> · © 2026</div><div class="footer-links mono"><a href="https://xlimit.org">Main Site</a><a href="https://app.xlimit.org">App</a><a href="https://github.com/w1j0y" target="_blank">GitHub</a></div></div></div></footer>
+</body>
+</html>
