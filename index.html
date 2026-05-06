@@ -255,7 +255,7 @@
     }
 
     .posts-grid {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.15fr 0.85fr;
     }
 
     .card,
@@ -266,11 +266,33 @@
       padding: 26px;
     }
 
+    .post-card {
+      transition: 0.2s ease;
+    }
+
+    .post-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--line-strong);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.24);
+    }
+
+    .post-card.featured {
+      border-color: rgba(255, 255, 255, 0.16);
+      box-shadow: 0 20px 50px rgba(255, 255, 255, 0.035);
+    }
+
     .card h3,
     .post-card h3 {
       font-size: 1.02rem;
       margin-bottom: 8px;
       letter-spacing: -0.02em;
+    }
+
+    .post-card.featured h3 {
+      font-size: clamp(1.3rem, 3vw, 1.9rem);
+      line-height: 1.15;
+      letter-spacing: -0.045em;
+      margin-bottom: 12px;
     }
 
     .card p,
@@ -287,14 +309,32 @@
       margin-bottom: 12px;
     }
 
-    .post-card a {
-      display: inline-block;
-      margin-top: 14px;
+    .post-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .post-tag {
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--text-soft);
+      background: rgba(255, 255, 255, 0.02);
+      font-size: 0.78rem;
+    }
+
+    .post-card a.read-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
       color: var(--text);
       font-weight: 700;
     }
 
-    .post-card a:hover {
+    .post-card a.read-link:hover {
       color: var(--text-soft);
     }
 
@@ -445,23 +485,45 @@
   <section id="latest">
     <div class="container">
       <div class="section-label mono">Latest Posts</div>
-      <h2 class="section-title">Posts will start appearing here.</h2>
+      <h2 class="section-title">Start with the xLimit Client setup guide.</h2>
       <p class="section-sub">
+        The first post walks through registration, token setup, client installation, hosted retrieval testing,
+        and using xLimit Client inside Codex or Claude Code.
       </p>
 
       <div class="posts-grid">
-        <article class="post-card fade-in">
-          <div class="post-meta mono">April 2026 · xLimit</div>
-          <h3>Coming soon: first post</h3>
-          <p>Your first article will replace this placeholder.</p>
-          <a href="#">Read post</a>
+        <article class="post-card featured fade-in">
+          <div class="post-meta mono">May 2026 · xLimit Guide</div>
+          <h3>
+            <a href="/how-to-deploy-and-use-xlimit-client.html">
+              How to Deploy and Use xLimit Client Step by Step
+            </a>
+          </h3>
+          <p>
+            A full walkthrough for approved users who want to connect terminal agents like Codex
+            or Claude Code to hosted xLimit retrieval.
+          </p>
+          <div class="post-tags mono">
+            <span class="post-tag">xLimit Client</span>
+            <span class="post-tag">Codex</span>
+            <span class="post-tag">Claude Code</span>
+            <span class="post-tag">Hosted Retrieval</span>
+          </div>
+          <a class="read-link" href="/how-to-deploy-and-use-xlimit-client.html">Read the guide →</a>
         </article>
 
         <article class="post-card fade-in">
-          <div class="post-meta mono">April 2026 · Research</div>
-          <h3>Coming soon: practical testing notes</h3>
-          <p>Use this space for workflows, lessons, and opinions worth sharing.</p>
-          <a href="#">Read post</a>
+          <div class="post-meta mono">Coming Soon · Research</div>
+          <h3>More practical security notes are coming.</h3>
+          <p>
+            Future posts will cover recon workflows, testing patterns, reporting lessons, and
+            behind-the-scenes xLimit updates.
+          </p>
+          <div class="post-tags mono">
+            <span class="post-tag">Bug Bounty</span>
+            <span class="post-tag">Recon</span>
+            <span class="post-tag">Testing Notes</span>
+          </div>
         </article>
       </div>
     </div>
