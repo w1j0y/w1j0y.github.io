@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Using xLimit Effectively: Build a System, Not Just a Session | xLimit Blog</title>
-  <meta name="description" content="How to use xLimit OpenWebUI and xLimit Client effectively by building a disciplined research system with digests, maintenance prompts, browser evidence, source review, notes, learnings, and failures." />
+  <title>Build a System, Not Just a Session | xLimit Blog</title>
+  <meta name="description" content="Notes on using AI assistants in security research: build a system with digests, maintenance reviews, browser evidence, structured source review, and a record of what failed." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -14,25 +14,27 @@
   </style>
 </head>
 <body>
-  <nav><div class="container"><a href="/" class="logo">x<span>Limit</span> Blog</a><div class="nav-links"><a href="/">Home</a><a href="https://xlimit.org">Main Site</a><a href="https://app.xlimit.org" class="nav-cta">Launch App</a></div></div></nav>
+  <nav><div class="container"><a href="/" class="logo">x<span>Limit</span> Blog</a><div class="nav-links"><a href="/">Home</a><a href="https://xlimit.org">Main Site</a></div></div></nav>
 
-  <section class="hero"><div class="article-wrap"><div class="hero-badge mono">xLimit Workflow</div><h1>Using xLimit Effectively: Build a System, Not Just a Session</h1><p class="hero-sub">How to use xLimit OpenWebUI and xLimit Client as part of a disciplined security research workflow, instead of treating every agent session like a fresh start.</p><div class="post-meta mono">June 2026 · xLimit</div></div></section>
+  <section class="hero"><div class="article-wrap"><div class="hero-badge mono">Research workflow</div><h1>Build a System, Not Just a Session</h1><p class="hero-sub">Notes on using AI assistants in security research without treating every session like a fresh start.</p><div class="post-meta mono">June 2026 · revised October 2026</div></div></section>
 
   <section class="article"><div class="article-wrap"><a class="back-link" href="/">← Back to blog</a><article class="article-card">
 
+    <p><em>A note first. I wrote this in June 2026, when xLimit was a hosted assistant. That service has since closed. I have kept the method as it was, because none of it depends on one tool. Where the text says xLimit, read it as whatever assistant you use. I still use the xLimit knowledge tool with terminal agents in my own work.</em></p>
+
     <p>Most people who start using AI for security research make the same mistake: they treat every session like a new beginning.</p>
 
-    <p>They open xLimit, paste a target, ask for ideas, maybe run a few commands, maybe get excited for ten minutes, then the session ends and everything disappears into the void. The next day they do it again. New chat, same target style, same assumptions, same false positives, same “this looks interesting” moment that later turns into absolutely nothing. After a while, it feels like the agent is not improving, but the real problem is usually that the user is not giving it a way to improve.</p>
+    <p>They open an assistant, paste a target, ask for ideas, maybe run a few commands, maybe get excited for ten minutes, then the session ends and everything disappears into the void. The next day they do it again. New chat, same target style, same assumptions, same false positives, same “this looks interesting” moment that later turns into absolutely nothing. After a while, it feels like the agent is not improving, but the real problem is usually that the user is not giving it a way to improve.</p>
 
     <p>That is the part many people miss.</p>
 
-    <p>xLimit is not supposed to be used as a one-shot bug-finding machine. It is not a magic box where you throw disclosed reports, recon output, and a few HackerOne program links, then wait for a clean critical vulnerability to fall out. If that worked, everyone would be retired by now, and bug bounty would just be a competition of who can paste faster.</p>
+    <p>An AI assistant is not a one-shot bug-finding machine. It is not a magic box where you throw disclosed reports, recon output, and a few HackerOne program links, then wait for a clean critical vulnerability to fall out. If that worked, everyone would be retired by now, and bug bounty would just be a competition of who can paste faster.</p>
 
-    <p>The real value of xLimit comes when you build a system around it.</p>
+    <p>The real value comes when you build a system around it.</p>
 
     <p>A system that captures what happened during each session. A system that tracks what worked, what failed, what looked promising but collapsed, what was out of scope, what was a duplicate pattern, what was a false positive, and what needs to be tested differently next time. Without that, every session becomes isolated, and isolated sessions are where methodology goes to die.</p>
 
-    <p>The goal is not to make xLimit think like some generic “AI hacker.” The goal is to make xLimit think more like you, the pentester using it.</p>
+    <p>The goal is not to make the assistant think like some generic “AI hacker.” The goal is to make it think more like you, the person using it.</p>
 
     <p>That only happens if you teach it your process.</p>
 
@@ -48,17 +50,17 @@
 
     <p>That is how the system improves.</p>
 
-    <h2>OpenWebUI and xLimit Client Serve Different Purposes</h2>
+    <h2>A Conversation and a Terminal Serve Different Purposes</h2>
 
-    <p>xLimit can be used through OpenWebUI and through xLimit Client, and both are useful, but they are not exactly the same experience.</p>
+    <p>I use AI assistance in two different ways, and they are not the same experience.</p>
 
-    <p>OpenWebUI is better when you want a focused research conversation. It is where you can slow down, think through a target, review a possible vulnerability, ask whether an impact argument is strong enough, or challenge a chain before wasting another three hours trying to prove something that was dead from the beginning.</p>
+    <p>A conversation is better when you want to think. It is where you can slow down, think through a target, review a possible vulnerability, ask whether an impact argument is strong enough, or challenge a chain before wasting another three hours trying to prove something that was dead from the beginning.</p>
 
-    <p>xLimit Client is better when you are working directly from the terminal. If you are using Codex, Claude Code, opencode, or another terminal-based agent, the client lets you bring xLimit knowledge into that workflow without constantly switching windows or copy-pasting large blocks of methodology. It is useful when the agent needs quick access to rules, notes, testing patterns, or structured guidance while working inside a real project directory.</p>
+    <p>A terminal agent is better when you are working inside a project. If you use Codex, Claude Code, opencode, or another terminal-based agent, a retrieval tool lets you bring methodology into that work without constantly switching windows or pasting large blocks of notes. It helps when the agent needs quick access to rules, notes, testing patterns, or structured guidance while it works in a real project directory.</p>
 
-    <p>The best setup is not “OpenWebUI or Client.” It is both, used properly.</p>
+    <p>The best setup is not one or the other. It is both, used properly.</p>
 
-    <p>Use OpenWebUI for deeper thinking, review, strategy, and decision-making. Use xLimit Client when your terminal agent needs methodology beside the actual work. When both are connected to the same overall system, the workflow becomes much stronger because your reasoning, notes, prompts, and agent sessions all start pointing in the same direction.</p>
+    <p>Use the conversation for deeper thinking, review, strategy, and decisions. Use the terminal agent when the work needs methodology beside it. When both feed the same notes, the workflow gets much stronger, because your reasoning, prompts, and agent sessions start pointing in the same direction.</p>
 
     <h2>Why One-Off Sessions Waste Time</h2>
 
@@ -240,6 +242,6 @@
 
   </article></div></section>
 
-  <footer><div class="container"><div class="footer-content"><div class="footer-left"><span class="mono" style="color:#fff;">xLimit Blog</span> · © 2026</div><div class="footer-links mono"><a href="https://xlimit.org">Main Site</a><a href="https://app.xlimit.org">App</a><a href="https://github.com/w1j0y" target="_blank">GitHub</a></div></div></div></footer>
+  <footer><div class="container"><div class="footer-content"><div class="footer-left"><span class="mono" style="color:#fff;">xLimit Blog</span> · © 2026</div><div class="footer-links mono"><a href="https://xlimit.org">Main Site</a><a href="https://github.com/w1j0y" target="_blank">GitHub</a></div></div></div></footer>
 </body>
 </html>
